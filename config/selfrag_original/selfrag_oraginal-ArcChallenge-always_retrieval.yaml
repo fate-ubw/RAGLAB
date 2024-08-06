@@ -1,0 +1,38 @@
+seed: 633
+use_seed: True
+# GPU config
+num_gpu: 1
+# eval config
+algorithm_name: selfrag_original
+task: Arc
+eval_datapath: ./data/eval_datasets/Arc_Challenge/arc_challenge_processed_first_500_samples.jsonl 
+output_dir: ./data/eval_results/
+# llm config
+llm_mode: HF_Model
+llm_path: ./model/selfrag_llama2_7b/
+dtype: "half"
+use_vllm: True
+generate_maxlength: 50
+temperature: 0.0
+top_p: 1.0
+generation_stop: ''
+# retrieval common config
+n_docs: 10
+# colbert config
+# self rag
+world_size: 1
+threshold: 0.2  
+use_seqscore: True
+use_groundness: True
+use_utility: True
+beam_width: 2
+max_depth: 2
+w_rel: 1.0
+w_sup: 1.0
+w_use: 0.5
+retrieval_mode: "always_retrieval"
+show_specialtokens: True
+inference_form: 'short_form'
+ignore_cont: False
+
+

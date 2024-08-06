@@ -1,0 +1,23 @@
+use_seed: True
+seed: 633
+num_gpu: 1
+# eval config
+algorithm_name: self_ask
+eval_datapath: ./data/eval_datasets/PopQA/popqa_longtail_w_gs_first_500_samples.jsonl
+task: PopQA
+output_dir: ./data/eval_results/
+# llm config
+llm_mode: Lora_Model
+llm_path: ./model/Llama3-70B-baseline-adapter
+basemodel_path: ./model/Meta-Llama-3-70B
+quantization: 4bit
+use_vllm: True
+temperature: 0.0
+top_p: 1.0
+generation_stop: 'Intermediate Answer:'
+generate_maxlength: 100
+# retrieval config
+realtime_retrieval: True
+retrieval_name: colbert_api
+n_docs: 10
+passages_max_length: -1

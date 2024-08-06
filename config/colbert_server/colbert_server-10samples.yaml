@@ -1,0 +1,4 @@
+port: 8893
+index_dbPath: /workspace/raglab-exp/data/retrieval/colbertv2.0_embedding/wiki2023-10samples
+text_dbPath: /workspace/raglab-exp/data/retrieval/colbertv2.0_passages/wiki2023-10samples/enwiki-20230401-10samples.tsv
+retriever_modelPath: ./model/colbertv2.0

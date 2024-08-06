@@ -1,0 +1,1 @@
+from raglab.retrieval.contriever.contriever_retrieve import ContrieverRrtieve

@@ -1,0 +1,44 @@
+use_seed: True
+seed: 633
+# GPU config
+num_gpu: 2
+# eval config
+algorithm_name: selfrag_reproduction
+eval_datapath: ./data/eval_datasets/HotPotQA/hotpot_dev_fullwiki_v1_first_500_samples.jsonl
+task: HotPotQA
+output_dir: ./data/eval_results/
+# llm config
+llm_path: ./model/selfrag_llama3_8b-epoch_0_1
+dtype: "half"
+use_vllm: True
+generate_maxlength: 100
+temperature: 0.0
+top_p: 1.0
+generation_stop: '[Utility:5]'
+include_stop_token: True
+# retrieval common config
+realtime_retrieval: True
+retrieval_name: colbert_api
+
+
+n_docs: 10
+passages_max_length: -1
+# self rag configs
+  # decoding args
+threshold: 0.2
+use_seqscore: True
+use_groundness: True
+use_utility: True
+beam_width: 2
+max_depth: 7
+w_rel: 1.0
+w_sup: 1.0
+w_use: 0.5
+  # inference mode
+inference_form: 'short_form'
+retrieval_mode: "adaptive_retrieval"
+show_specialtokens: False
+ignore_cont: False
+use_citation: False
+
+

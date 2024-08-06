@@ -1,0 +1,4 @@
+port: 8893
+index_dbPath: /home/wyd/zxw/raglab-exp/data/retrieval/colbertv2.0_embedding/wiki2018
+text_dbPath: /home/wyd/zxw/raglab-exp/data/retrieval/colbertv2.0_passages/wiki2018/wiki2018.tsv
+retriever_modelPath: ./model/colbertv2.0

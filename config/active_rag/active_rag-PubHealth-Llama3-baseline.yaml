@@ -1,0 +1,29 @@
+use_seed: True
+seed: 633
+num_gpu: 1
+# eval config
+algorithm_name: active_rag
+task: PubHealth
+eval_datapath: ./data/eval_datasets/PubHealth/health_claims_processed_first_500_samples.jsonl
+output_dir: ./data/eval_results
+# llm config
+llm_mode: HF_Model
+llm_path: ./model/Llama3-8B-baseline
+
+dtype: half
+use_vllm: False
+temperature: 0.0
+top_p: 1.0
+generation_stop: ''
+generate_maxlength: 50
+# retrieval config
+realtime_retrieval: True
+retrieval_name: colbert_api
+n_docs: 10
+passages_max_length: -1
+# acrive rag config
+max_fianl_answer_length: 50
+filter_prob: 0.8
+masked_prob: 0.4
+
+

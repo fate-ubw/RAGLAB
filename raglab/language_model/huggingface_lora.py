@@ -1,0 +1,114 @@
+from typing import  Union
+from tqdm import tqdm
+import numpy as np
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from peft import AutoPeftModelForCausalLM, PeftModel, PeftConfig
+from raglab.language_model.base_lm import BaseLM
+import pdb
+
+class Lora_Model(BaseLM):
+    def __init__(self, args):
+        super().__init__(args)
+        self.llm_path = args.llm_path # lora adapter path
+        self.basemodel_path = args.basemodel_path # base model path
+
+        self.dtype = args.dtype
+        self.generation_stop = args.generation_stop
+        self.use_chat_template = args.use_chat_template
+        self.quantization = args.quantization
+
+    def load_model(self):
+        if self.quantization == "8bit":
+            quantization_config = BitsAndBytesConfig(
+                                    load_in_8bit=True,
+                                    llm_int8_threshold=6.0,
+                                    llm_int8_skip_modules=["embed_tokens", "lm_head"])
+        
+        elif self.quantization == "4bit":
+            quantization_config = BitsAndBytesConfig(
+                        load_in_4bit=True,
+                        bnb_4bit_quant_type="fp4",
+                        bnb_4bit_compute_dtype="bfloat16",
+                        bnb_4bit_use_double_quant=True,
+                    )
+        else:
+            quantization_config = None
+
+        if self.dtype == 'half' or self.dtype == 'float16':
+            self.base_model = AutoModelForCausalLM.from_pretrained(self.basemodel_path, device_map="auto", quantization_config = quantization_config, torch_dtype=torch.float16)
+        else:
+            self.base_model = AutoModelForCausalLM.from_pretrained(self.basemodel_path, device_map="auto", quantization_config = quantization_config)
+        self.tokenizer = AutoTokenizer.from_pretrained(self.llm_path, skip_special_tokens=False, padding_side="left")
+        self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
+        self.base_model.resize_token_embeddings(len(self.tokenizer))
+        self.llm = PeftModel.from_pretrained(self.base_model, self.llm_path) 
+        self.llm.eval()
+
+    def generate(self, inputs: Union[str,list[str]])->list[BaseLM.Outputs]:
+        if isinstance(inputs,str):
+            inputs = [inputs]
+        outputs_list = []
+        for prompt in tqdm(inputs, desc="Generating outputs"):
+            if self.use_chat_template is True:
+                messages = [{"role": "user", "content": prompt}]
+                input_ids = self.tokenizer.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt").cuda(self.llm.device)
+            else:
+                input_ids = self.tokenizer.encode(prompt, return_tensors="pt").cuda(self.llm.device)
+            instruction_len = input_ids.shape[1]
+            if self.temperature > 0 or self.top_p <1:
+                # nuelcus
+                hf_outputs = self.llm.generate(
+                    input_ids=input_ids,
+                    do_sample=True,
+                    temperature = self.temperature,
+                    top_p = self.top_p,
+                    max_length=instruction_len + self.generate_maxlength,
+                    eos_token_id = [self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")],
+                    output_scores=True,
+                    return_dict_in_generate=True,
+                    pad_token_id = self.tokenizer.eos_token_id
+                )
+            else:
+                # greedy 
+                hf_outputs = self.llm.generate(
+                    input_ids=input_ids,
+                    do_sample=False,
+                    max_length=instruction_len + self.generate_maxlength,
+                    eos_token_id = [self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")],
+                    output_scores=True,
+                    return_dict_in_generate=True,
+                    pad_token_id = self.tokenizer.eos_token_id
+                )
+            Outputs = self.Outputs()
+            Outputs.tokens_ids = hf_outputs.sequences[0][instruction_len:].tolist()
+            Outputs.tokens_num = len(Outputs.tokens_ids)
+            text = self.tokenizer.decode(Outputs.tokens_ids, skip_special_tokens = False)
+            # replace special tokens
+            if "<|eot_id|>" in text or "<|end_of_text|>":
+                text =  text.replace("<|start_header_id|>assistant<|end_header_id|>\n\n", "").replace("<|eot_id|>", "").replace("<|end_of_text|>", "").strip()
+            else:
+                text =  text.replace("<|start_header_id|>assistant<|end_header_id|>\n\n", "").eplace("<|end_of_text|>", "").strip()
+            if '</s>' in text:
+                text =  text.replace("<s> ", "").replace("</s>", "").strip()
+            else:
+                text =  text.replace("<s> ", "").strip()
+            Outputs.text = text
+            # calculate the probs of each tokens
+            tokens_prob = []
+            tokens_logprob = []
+            logprobs = []
+            for idx, token_id in enumerate(Outputs.tokens_ids): # attention the type of token_id is torch.tensor()
+                token_logprob = hf_outputs.scores[idx].log_softmax(-1)[0][token_id].item()
+                token_prob = hf_outputs.scores[idx].log_softmax(-1).exp()[0][token_id].item() # `outputs.scores` only records the logits of the generated tokens, so its length is equal to `generation_maxlength`.
+                logprob_dict = {int(i):float(logprob) for i, logprob in enumerate(hf_outputs.scores[idx].log_softmax(-1)[0].tolist())}
+                tokens_prob.append(token_prob)
+                tokens_logprob.append(token_logprob)
+                logprobs.append(logprob_dict)
+            Outputs.tokens_logprob = tokens_logprob
+            Outputs.tokens_prob = tokens_prob
+            Outputs.cumulative_logprob = float(np.prod(Outputs.tokens_prob) / max(len(Outputs.tokens_prob), 1))
+            Outputs.logprobs = logprobs
+            outputs_list.append(Outputs)
+        # --> end of for loop
+        return outputs_list

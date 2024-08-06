@@ -1,0 +1,22 @@
+use_seed: True
+seed: 633
+num_gpu: 1
+# eval config
+algorithm_name: self_ask
+task: Factscore
+eval_datapath: ./data/eval_datasets/Factscore/factscore_unlabeled_alpaca_13b_retrieval_without_idx62.jsonl
+output_dir: ./data/eval_results/
+# llm config
+llm_mode: Lora_Model
+llm_path: ./model/Llama3-70B-baseline-adapter
+basemodel_path: ./model/Meta-Llama-3-70B
+use_vllm: True
+temperature: 0.0
+top_p: 1.0
+generation_stop: 'Intermediate Answer:'
+generate_maxlength: 300
+# retrieval config
+realtime_retrieval: True
+retrieval_name: colbert_api
+n_docs: 5
+passages_max_length: -1

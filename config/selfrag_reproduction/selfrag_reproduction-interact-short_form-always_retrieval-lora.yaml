@@ -1,0 +1,40 @@
+use_seed: True
+seed: 633
+# GPU config
+num_gpu: 2
+# eval config
+algorithm_name: selfrag_reproduction
+task: ''
+# llm config
+llm_mode: Lora_Model
+llm_path: ./model/output_models/self_rag_8B-adapter
+basemodel_path: ./model/Meta-Llama-3-8B
+dtype: 'half'
+use_vllm: True
+generate_maxlength: 500
+temperature: 0.0
+top_p: 1.0
+generation_stop: '[Utility:5]'
+include_stop_token: True
+# retrieval common config
+realtime_retrieval: True
+retrieval_name: colbert_api
+n_docs: 5
+passages_max_length: -1
+# self rag 
+  # decoding args
+threshold: 0.2
+use_seqscore: True
+use_groundness: True
+use_utility: True
+beam_width: 2
+max_depth: 7
+w_rel: 1.0
+w_sup: 1.0
+w_use: 0.5
+  # mode and 
+inference_form: 'short_form'
+retrieval_mode: "always_retrieval"
+show_specialtokens: True
+ignore_cont: False
+use_citation: True

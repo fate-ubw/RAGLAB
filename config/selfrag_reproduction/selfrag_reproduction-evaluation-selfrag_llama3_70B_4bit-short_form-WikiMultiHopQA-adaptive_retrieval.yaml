@@ -1,0 +1,46 @@
+use_seed: True
+seed: 633
+# GPU config
+num_gpu: 2
+# eval config
+algorithm_name: selfrag_reproduction
+eval_datapath: ./data/eval_datasets/2WikiMultiHopQA/dev_first_500_samples.jsonl
+task: 2WikiMultiHopQA
+output_dir: ./data/eval_results/
+# llm config
+llm_mode: Lora_Model
+llm_path: ./model/selfrag_llama3_70B-adapter
+basemodel_path: ./model/Meta-Llama-3-70B
+quantization: 4bit
+dtype: "half"
+generate_maxlength: 100
+use_vllm: True
+temperature: 0.0
+top_p: 1.0
+generation_stop: '[Utility:5]'
+include_stop_token: True
+# retrieval common config
+realtime_retrieval: True
+retrieval_name: colbert_api
+
+
+n_docs: 5
+passages_max_length: -1
+# self rag configs
+threshold: 0.2
+use_seqscore: True
+use_groundness: True
+use_utility: True
+beam_width: 2
+max_depth: 7
+w_rel: 1.0
+w_sup: 1.0
+w_use: 0.5
+  # inference mode
+inference_form: 'short_form'
+retrieval_mode: "adaptive_retrieval"
+show_specialtokens: False
+ignore_cont: False
+use_citation: False
+
+

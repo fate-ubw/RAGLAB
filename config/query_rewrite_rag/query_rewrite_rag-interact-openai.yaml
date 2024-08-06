@@ -1,0 +1,22 @@
+use_seed: True
+seed: 633
+num_gpu: 1
+# eval config
+algorithm_name: query_rewrite_rag
+task: ''
+# llm config
+llm_mode: Openai_api
+llm_name: gpt-3.5-turbo
+api_key_path: ./api_keys.txt
+api_base: https://api2.aigcbest.top/v1
+use_vllm: True
+temperature: 0.0
+top_p: 1.0
+generation_stop: '**'
+generate_maxlength: 300
+# retrieval config
+realtime_retrieval: True
+retrieval_name: colbert_api
+n_docs: 10
+passages_max_length: -1
+# query rewrite rag has no special config

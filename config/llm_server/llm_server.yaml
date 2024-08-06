@@ -1,0 +1,9 @@
+llm_path: ./model/output_models/unified-Critic-8B-baseline_2w
+dtype: half
+temperature: 0.0
+top_p: 1.0
+generate_maxlength: 200
+generation_stop: ''
+include_stop_token: False
+use_chat_template: False
+port: 5001

@@ -1,0 +1,13 @@
+python -i ./main_data_collector.py\
+    --collector_method selfrag-critic\
+    --base_path /home/wyd/FlashRAG/dataset \
+    --output ./data/collected_data/\
+    --llm_mode Openai_api\
+    --llm_name  gpt-3.5-turbo \
+    --api_key_path  ./api_keys.txt\
+    --api_base  https://api2.aigcbest.top/v1 \
+    --temperature  0.0 \
+    --top_p  1.0 \
+    --generate_maxlength  200 \
+    --retrieval_name  colbert_api \
+    --n_docs  5\

@@ -1,0 +1,31 @@
+use_seed: True
+seed: 633
+num_gpu: 1
+# eval config
+algorithm_name: active_rag
+task: HotPotQA
+eval_datapath: ./data/eval_datasets/HotPotQA/hotpot_dev_fullwiki_v1_first_500_samples.jsonl
+output_dir: ./data/eval_results
+# llm config
+llm_mode: Lora_Model
+llm_path: ./model/Llama3-70B-baseline-adapter
+basemodel_path: ./model/Meta-Llama-3-70B
+quantization: 4bit
+
+dtype: half
+use_vllm: False
+temperature: 0.0
+top_p: 1.0
+generation_stop: ''
+generate_maxlength: 100
+# retrieval config
+realtime_retrieval: True
+retrieval_name: colbert_api
+n_docs: 10
+passages_max_length: -1
+# acrive rag config
+max_fianl_answer_length: 100
+filter_prob: 0.8
+masked_prob: 0.4
+
+

@@ -1,0 +1,1 @@
+python  ./preprocess/colbert-wiki2023-preprocess/wiki2023-db_into_tsv.py

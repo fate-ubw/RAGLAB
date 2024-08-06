@@ -1,0 +1,22 @@
+use_seed: True
+seed: 633
+num_gpu: 1
+# eval config
+algorithm_name: naive_rag
+task: StrategyQA
+eval_datapath: ./data/eval_datasets/StrategyQA/strategyqa_train_first_500_samples.jsonl
+output_dir: ./data/eval_results/
+# llm config
+llm_mode: Openai_api
+llm_name: gpt-3.5-turbo
+api_key_path: ./api_keys.txt
+api_base: https://api2.aigcbest.top/v1
+temperature: 0.0
+top_p: 1.0
+generation_stop: ''
+generate_maxlength: 300
+# retrieval config
+realtime_retrieval: True
+retrieval_name: colbert_api
+n_docs: 10
+passages_max_length: -1

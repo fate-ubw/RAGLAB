@@ -1,0 +1,1 @@
+python ./run/yaml_and_bash_generator/bash_generator.py

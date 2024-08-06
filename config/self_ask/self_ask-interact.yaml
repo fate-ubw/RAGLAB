@@ -1,0 +1,21 @@
+use_seed: True
+seed: 633
+num_gpu: 1
+# eval config
+algorithm_name: self_ask
+task: ''
+# llm config
+llm_mode: HF_Model
+llm_path: ./model/Llama-3-8B-Instruction-baseline
+dtype: 'half'
+use_vllm: True
+temperature: 0.6
+top_p: 0.9
+generation_stop: 'Intermediate Answer:'
+generate_maxlength: 300
+# retrieval config
+realtime_retrieval: True
+retrieval_name: colbert_api
+# max length should bigger than the length of input_ids
+n_docs: 10
+passages_max_length: -1

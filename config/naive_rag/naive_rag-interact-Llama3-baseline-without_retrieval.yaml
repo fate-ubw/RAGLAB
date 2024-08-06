@@ -1,0 +1,16 @@
+use_seed: True
+seed: 633
+num_gpu: 1
+# eval config
+algorithm_name: naive_rag
+task: ''
+# llm config
+llm_mode: HF_Model
+llm_path: ./model/Meta-Llama-3-8B
+use_vllm: False
+temperature: 0.0
+top_p: 1.0
+generation_stop: ''
+generate_maxlength: 300
+# retrieval config
+realtime_retrieval: False
