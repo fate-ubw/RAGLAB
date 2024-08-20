@@ -1,13 +1,11 @@
 # api key
 
-# data
 config-debug/
 run-debug/
 wiki2023/
 run/cache/
 model/
 cache-utilts/
-data/factscore/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.pyc

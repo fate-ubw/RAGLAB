@@ -21,10 +21,6 @@
 - dev environment：pytorch:2.0.1-py3.10-cuda11.8.0-devel-ubuntu22.04
 - [install miniconda](https://docs.anaconda.com/free/miniconda/index.html)
 
-- git clone raglab
-  ~~~bash
-  git clone https://github.com/fate-ubw/raglab-exp.git
-  ~~~
 - create environment from yml file 
   ~~~bash
   cd raglab-exp
