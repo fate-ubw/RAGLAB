@@ -40,7 +40,9 @@
   ~~~
 
 # 🤗 Model
-- raglab need llama2-7b, llama3-8b, colbertv2.0, selfrag_llama2_7b
+<details>
+<summary>raglab need several models please download them</summary>
+
   ~~~bash
   cd RAGLAB
   mkdir model
@@ -86,8 +88,9 @@
   huggingface-cli download selfrag/selfrag_llama2_7b --local-dir selfrag_llama2_7b/ --local-dir-use-symlinks False
   # you can download other model as generator from huggingface
   ~~~
+</details>
 
-# All data for reproduce paper results
+# All data for reproducing paper results
 - If you only need to understand how different algorithms work, the interact mode developed by RAGLAB can meet your needs. 
 - If you want to reproduce the results from the papers, you need to download all the required data from Hugging Face, including training data, knowledge data, and evaluation data. We have packaged all the data for you, so you just need to download it and it's ready to use.
   ~~~bash
