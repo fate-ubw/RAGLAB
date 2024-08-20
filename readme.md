@@ -47,13 +47,23 @@
   cd model
   mkdir output_models
   mkdir colbertv2.0
-  huggingface-cli download colbert-ir/colbertv2.0 --local-dir colbertv2.0/
-  mkdir Llama-2-7b-hf
-  huggingface-cli download meta-llama/Llama-2-7b-hf --local-dir Llama-2-7b-hf/
+  huggingface-cli download colbert-ir/colbertv2.0 --local-dir colbertv2.0/ --local-dir-use-symlinks False
+  mkdir Llama3-8B-baseline
+  huggingface-cli download RAGLAB/Llama3-8B-baseline --local-dir Llama3-8B-baseline/ --local-dir-use-symlinks False
+  mkdir selfrag_llama3_8b-epoch_0_1
+  huggingface-cli download RAGLAB/selfrag_llama3-8B --local-dir selfrag_llama3_8b-epoch_0_1/ --local-dir-use-symlinks False
+  mkdir Llama3-70B-baseline-adapter
+  huggingface-cli download RAGLAB/Llama3-70B-baseline-adapter --local-dir Llama3-70B-baseline-adapter/ --local-dir-use-symlinks False
+  mkdir selfrag_llama3_70B-adapter
+  huggingface-cli download RAGLAB/selfrag_llama3-70B-adapter --local-dir selfrag_llama3_70B-adapter/ --local-dir-use-symlinks False
+
+  # base model for finetune and LoRA
   mkdir Meta-Llama-3-8B
   huggingface-cli download meta-llama/Meta-Llama-3-8B --local-dir Meta-Llama-3-8B/
   mkdir Meta-Llama-3-70B
   huggingface-cli download meta-llama/Meta-Llama-3-70B --local-dir Meta-Llama-3-70B/
+
+  # models from official selfrag repo
   mkdir selfrag_llama2_7b
   huggingface-cli download selfrag/selfrag_llama2_7b --local-dir selfrag_llama2_7b/
   # you can download other model as generator from huggingface
