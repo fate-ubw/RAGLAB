@@ -46,26 +46,44 @@
   mkdir model
   cd model
   mkdir output_models
+  # retriever model
   mkdir colbertv2.0
   huggingface-cli download colbert-ir/colbertv2.0 --local-dir colbertv2.0/ --local-dir-use-symlinks False
+  mkdir contriever-msmarco
+  huggingface-cli download facebook/contriever-msmarco --local-dir contriever-msmarco/ --local-dir-use-symlinks False
+  
+  # finetuned generator
+  # 8B model
   mkdir Llama3-8B-baseline
   huggingface-cli download RAGLAB/Llama3-8B-baseline --local-dir Llama3-8B-baseline/ --local-dir-use-symlinks False
   mkdir selfrag_llama3_8b-epoch_0_1
   huggingface-cli download RAGLAB/selfrag_llama3-8B --local-dir selfrag_llama3_8b-epoch_0_1/ --local-dir-use-symlinks False
+  # 70B model
   mkdir Llama3-70B-baseline-adapter
   huggingface-cli download RAGLAB/Llama3-70B-baseline-adapter --local-dir Llama3-70B-baseline-adapter/ --local-dir-use-symlinks False
   mkdir selfrag_llama3_70B-adapter
   huggingface-cli download RAGLAB/selfrag_llama3-70B-adapter --local-dir selfrag_llama3_70B-adapter/ --local-dir-use-symlinks False
+  mkdir Meta-Llama-3-70B
+  huggingface-cli download meta-llama/Meta-Llama-3-70B --local-dir Meta-Llama-3-70B/ --local-dir-use-symlinks False
 
   # base model for finetune and LoRA
   mkdir Meta-Llama-3-8B
-  huggingface-cli download meta-llama/Meta-Llama-3-8B --local-dir Meta-Llama-3-8B/
-  mkdir Meta-Llama-3-70B
-  huggingface-cli download meta-llama/Meta-Llama-3-70B --local-dir Meta-Llama-3-70B/
+  huggingface-cli download meta-llama/Meta-Llama-3-8B --local-dir Meta-Llama-3-8B/ --local-dir-use-symlinks False
+
+
+  # ALCE Metric Models
+  mkdir gpt2-large
+  huggingface-cli download openai-community/gpt2-large --local-dir gpt2-large/ --local-dir-use-symlinks False
+  mkdir roberta-large-squad
+  huggingface-cli download gaotianyu1350/roberta-large-squad --local-dir roberta-large-squad/ --local-dir-use-symlinks False
+  mkdir t5_xxl_true_nli_mixture
+  huggingface-cli download google/t5_xxl_true_nli_mixture --local-dir t5_xxl_true_nli_mixture/ --local-dir-use-symlinks False
+
+  # factscore model we use gpt3.5 for evaluation, so no need to download local models
 
   # models from official selfrag repo
   mkdir selfrag_llama2_7b
-  huggingface-cli download selfrag/selfrag_llama2_7b --local-dir selfrag_llama2_7b/
+  huggingface-cli download selfrag/selfrag_llama2_7b --local-dir selfrag_llama2_7b/ --local-dir-use-symlinks False
   # you can download other model as generator from huggingface
   ~~~
 
@@ -78,11 +96,9 @@
   ~~~
 
 
-
-
 # Run Raglab in Interact Mode
 - Interact Mode is specifically designed for quickly understanding algorithms. In interact mode, you can run various algorithms very quickly, understand the reasoning process of different algorithms, without needing to download any additional data.
-### prepare knowledge database 
+## prepare knowledge database 
 - After processing with colbert embeddings, you can start running the algorithms in raglab. All algorithms integrated in raglab include two modes: `interact` and `evaluation`. The test stage demonstrates in `interact` mode, just for fun 🤗.
 - Modify the `index_dbPath` and `text_dbPath` in config file:[selfrag_reproduction-interact-short_form-adaptive_retrieval.yaml](https://github.com/fate-ubw/RAGLAB/blob/main/config/selfrag_reproduction/selfrag_reproduction-interact-short_form-adaptive_retrieval.yaml)
   ~~~bash
