@@ -131,21 +131,21 @@
 # Reproduce paper results 
 - remember download  [wiki2018 konwledge database](#🤗whole-data) and [model](#🤗models) before runing paper results
 ## Retrieval server & api
-- Due to colbert's requirement for absolute paths, you need to modify the index_dbPath and text_dbPath in config file and 处理好的 wiki2018 embedding database
-  - 修改 config 文件中的路径
+- Due to colbert's requirement for absolute paths, you need to modify the index_dbPath and text_dbPath in config file and process the wiki2018 embedding database
+  - Modify the paths in the config file
   ~~~bash
   cd RAGLAB/config/colbert_server
   vim colbert_server.yaml
   index_dbPath: {your_root_path}/RAGLAB/data/retrieval/colbertv2.0_embedding/wiki2018
   text_dbPath: {your_root_path}/RAGLAB/data/retrieval/colbertv2.0_passages/wiki2018/wiki2018.tsv
   ~~~
-  - 修改 wiki2018 embedding 源文件中绑定的绝对路径
+  - Modify the absolute paths bound in the wiki2018 embedding source file
   ~~~bash
-  cd RAGLAB/preprocess/colbert-wiki2018-preprocess
-  vim wiki2018_db_into_tsv.py
+  vim /data/retrieval/colbertv2.0_embedding/wiki2018/indexes/wiki2018/metadata.json
+  # change root path, other parameters do not need to be modified
+  "collection": "/{your_root_path}/RAGLAB/data/retrieval/colbertv2.0_passages/wiki2018/wiki2018.tsv",
+  "experiment": "/{your_root_path}/RAGLAB/data/retrieval/colbertv2.0_embedding/wiki2018",
   ~~~
-
-
 - Attention: colbert_server need atleast 60GB ram 
   ~~~bash
   cd RAGLAB
