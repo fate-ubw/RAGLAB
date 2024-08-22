@@ -16,13 +16,11 @@
 - **Versatile Generator Support:** Compatible with 70B+ models, VLLM, and quantization techniques.
 - **Flexible Instruction Lab:** Customizable instruction templates for various RAG scenarios.
 
-
-
 # 🔨Install environment
 - dev environment：pytorch:2.0.1-py3.10-cuda11.8.0-devel-ubuntu22.04
 - [install miniconda](https://docs.anaconda.com/free/miniconda/index.html)
 
-- git clone /RAGLab
+- git clone RAGLAB
   ~~~bash
   https://github.com/fate-ubw/RAGLAB.git
   ~~~
@@ -39,7 +37,7 @@
   python -m nltk.downloader punkt
   ~~~
 
-# 🤗 Model
+# 🤗 Models
 <details>
 <summary>raglab need several models please download them</summary>
 
@@ -150,11 +148,11 @@ sh run/colbert_server/ask_api.sh
   ~~~
 
 
+# process knowlwdge database 
 
+## 💽 process wiki2023 as vector database
 
-# 💽 process wiki2023 as vector database
-
-## 10-samples test
+### 10-samples test
 - 10-samples test is aimed at validating the environment
 - run colbert embedding process enwiki-20230401-10samples.tsv
   1. Change root path for variables: `checkpoint`, `index_dbPath`, `collection` in
@@ -173,7 +171,7 @@ sh run/colbert_server/ask_api.sh
 - Embedding precess will take around 15mins in first time.
 - The first time colbert processes embeddings, it takes a relatively long time because it needs to recompile the `torch_extensions`. However, calling the processed embeddings does not require a long time. If there are no errors and the retrieved text can be printed, it indicates that the environment is correct.
 
-## embedding whole wiki2023
+### embedding whole wiki2023
 - you can download the [colbert embdding wiki2023]() as raglab database(40Gb)
 ~~~bash
 cd /RAGLAB/data/retrieval/colbertv2.0_embedding
@@ -182,7 +180,7 @@ gdown --id xxxxxx
 - modify the path in meta.json file
 - embedding whole wiki2023 to vector need 22 hours, so we recommend download prepared embedding
 
-### download wiki2023 raw data
+#### download wiki2023 raw data
 - current version of raglab use wiki2023 as database
 - we get source wiki2023 get from [factscore](https://github.com/shmsw25/FActScore)
   - method1: url for download wiki2023:[google_drive](https://drive.google.com/file/d/1mekls6OGOKLmt7gYtHs0WGf5oTamTNat/view) 
@@ -217,24 +215,24 @@ gdown --id xxxxxx
 
 
 
-# 💽 Process wiki2018 as vector database
+## 💽 Process wiki2018 as vector database
 - This section is a tutorial on using wiki2018
 
-## Download text files
+### Download text files
   - Directly download wiki2018 raw database using wget
 ~~~bash
 cd RAGLAB/data/retrieval/colbertv2.0_passages/wiki2018
 wget https://dl.fbaipublicfiles.com/dpr/wikipedia_split/psgs_w100.tsv.gz
 ~~~
 
-## Process raw wiki2018 into colbert format
+### Process raw wiki2018 into colbert format
 
 ~~~bash
 cd RAGLAB
 sh run/wiki2018_preprocess/1-wiki2018_tsv_2_tsv.sh
 ~~~
 
-## Modify wiki2018 embedding config file
+### Modify wiki2018 embedding config file
 1. Change the path
 ~~~
 cd /RAGLAB/data/retrieval/colbertv2.0_embedding/wiki2018/indexes/wiki2018
@@ -253,10 +251,7 @@ vim metadata.json
 - This section covers the process of training models in RAGLAB. You can either download all pre-trained models from HuggingFace🤗, or use the tutorial below to train from scratch📝.
 - [All data](#all-data-for-reproduce-paper-results) provides all data necessary for finetuning.
 
-## Fine tune llama3 & self rag 
-- The base models for raglab baseline and selfrag use llama3-instruction-8b. Since selfrag was further fine-tuned on additional data during the fine-tuning stage, in order to make a fair comparison, the baseline model also needs to be fine-tuned.
-
-### 10-samples test for fintune
+## 10-samples test for fintune
 - The 10-samples train dataset has been processed, please directly start the bash script to begin testing.
 - Note: The test script only uses one GPU
   - full weight requires 80GB VRam GPU
@@ -269,7 +264,7 @@ vim metadata.json
   cd RAGLAB
   sh run/rag_train/script_finetune-llama3-baseline-Lora-10samples.sh
   ~~~
-- Congratulations！！！You can now start fine-tuning the baseline and selfrag-8b🤖
+- Congratulations！！！You can now start fine-tuning the baseline model and selfrag-8B
 ## finetune self rag 8b
 - full weight finetune
   ~~~bash

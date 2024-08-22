@@ -5,9 +5,12 @@ from flask import Flask, render_template, request
 from functools import lru_cache
 # from dotenv import load_dotenv
 from utils import over_write_args_from_file
+from colbert.data import Collection
+from colbert import Indexer, Searcher
 from colbert.infra import Run, RunConfig, ColBERTConfig
-from colbert import Searcher
 import pdb
+RED = '\033[91m'
+END = '\033[0m'
 
 def get_config():
     parser = argparse.ArgumentParser()
@@ -32,8 +35,24 @@ class ColbertServer:
 
     def setup_retrieve(self):
         index_name = os.path.basename(self.index_dbPath)
-        with Run().context(RunConfig(experiment = self.index_dbPath)):
-            self.searcher = Searcher(index = index_name, checkpoint = self.retriever_modelPath)
+        collection_path = self.text_dbPath
+        collection = Collection(path = collection_path)
+        try:
+            with Run().context(RunConfig(experiment = self.index_dbPath)):
+                self.searcher = Searcher(index = index_name)
+        except:
+            print(f'{RED}Warning!!! Your wiki database has issues. RagLab will enabe colbert to generate a vector database, which will take a long time. Please download the preprocessed wiki database from RagLab.{END}')
+            user_input = input(f"Enter 'yes' to process data with Colbert Embedding, or 'no' to exit: ")
+            if user_input.lower() == "yes":
+                with Run().context(RunConfig(nranks = 1, experiment = self.index_dbPath)):  # nranks specifies the number of GPUs to use.
+                    config = ColBERTConfig(doc_maxlen = 300, nbits = 2, kmeans_niters = 4) # colbert default setting
+                    indexer = Indexer(checkpoint = self.retriever_modelPath, config = config)
+                    indexer.index(name = index_name, collection = collection, overwrite=True) # overwrite must in [True, False, 'reuse', 'resume', "force_silent_overwrite"] 
+                with Run().context(RunConfig(experiment = self.index_dbPath)): 
+                    self.searcher = Searcher(index = index_name)
+            else:
+                print("Exiting program...")
+                sys.exit()
 
     def api_search(self):
         if request.method == "GET":

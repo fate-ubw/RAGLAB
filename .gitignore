@@ -1,9 +1,6 @@
 # api key
 
-config-debug/
-run-debug/
 wiki2023/
-run/cache/
 model/
 cache-utilts/
 # Byte-compiled / optimized / DLL files
