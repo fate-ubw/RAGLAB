@@ -99,23 +99,27 @@
 
 # Run Raglab in Interact Mode
 - Interact Mode is specifically designed for quickly understanding algorithms. In interact mode, you can run various algorithms very quickly, understand the reasoning process of different algorithms, without needing to download any additional data.
-## setup colbert server
-- RAGLAB 创造了一个只包含 10 个样本的 wiki2023 knowledge database for interact mode。
-  - 由于 colbert 强制使用绝对路径，所以需要
 
-- 运行 colbert server 
-  ~~~bash
-  cd RAGLAB
-  sh run/colbert_server/colbert_server-10samples.sh
-  ~~~
-- 
-## prepare knowledge database 
+## setup colbert server
 - All algorithms integrated in raglab include two modes: `interact` and `evaluation`. The test stage demonstrates in `interact` mode, just for demostration and eduction 🤗.
+- Due to colbert's requirement for absolute paths, you need to modify the index_dbPath and text_dbPath in the config file to use absolute paths.
 - Modify the `index_dbPath` and `text_dbPath` in config file:[colbert_server-10samples.yaml](./config/colbert_server/colbert_server-10samples.yaml)
   ~~~bash
   index_dbPath: /your_root_path/RAGLAB/data/retrieval/colbertv2.0_embedding/wiki2023-10samples
   text_dbPath: /your_root_path/RAGLAB/data/retrieval/colbertv2.0_passages/wiki2023-10samples/enwiki-20230401-10samples.tsv
   ~~~
+- run colbert server 
+  ~~~bash
+  cd RAGLAB
+  sh run/colbert_server/colbert_server-10samples.sh
+  ~~~
+  - At this point, colbert embedding will prompt that due to path errors, colbert embedding needs to be reprocessed. Please enter `yes` and then raglab will automatically help you process the embedding and start the colbert server.
+  - Now please open another terminal and try to request the colbert server
+  ~~~bash
+  cd RAGLAB
+  sh run/colbert_server/ask_api.sh
+  ~~~
+  - If a result is returned, it means the colbert server has started successfully! 🌈
 - run [selfrag](https://arxiv.org/abs/2310.11511) (short form & adaptive retrieval) interact mode test 10-samples embedding
   ~~~bash
   cd RAGLAB
