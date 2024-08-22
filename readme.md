@@ -3,8 +3,6 @@
 - RAGLAB is a modular, research-oriented open-source framework for Retrieval-Augmented Generation (RAG) algorithms. It offers reproductions of 6 existing RAG algorithms and a comprehensive evaluation system with 10 benchmark datasets, enabling fair comparisons between RAG algorithms and easy expansion for efficient development of new algorithms, datasets, and evaluation metrics.
 
 
-
-
 ![figure-1](./figures/Raglab-figure-1.png)
 
 # 🌟Features
