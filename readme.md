@@ -1,4 +1,4 @@
-# RAGLAB: A Modular and Research-Oriented Unified Framework for Retrieval-Augmented Generation
+# <div align="center">RAGLAB: A Modular and Research-Oriented Unified Framework for Retrieval-Augmented Generation</div>
 
 - RAGLAB is a modular, research-oriented open-source framework for Retrieval-Augmented Generation (RAG) algorithms. It offers reproductions of 6 existing RAG algorithms and a comprehensive evaluation system with 10 benchmark datasets, enabling fair comparisons between RAG algorithms and easy expansion for efficient development of new algorithms, datasets, and evaluation metrics.
 
@@ -88,7 +88,7 @@
   ~~~
 </details>
 
-# All data for reproducing paper results
+# 🤗 Whole Data
 - If you only need to understand how different algorithms work, the interact mode developed by RAGLAB can meet your needs. 
 - If you want to reproduce the results from the papers, you need to download all the required data from Hugging Face, including training data, knowledge data, and evaluation data. We have packaged all the data for you, so you just need to download it and it's ready to use.
   ~~~bash
@@ -100,7 +100,7 @@
 # Run Raglab in Interact Mode
 - Interact Mode is specifically designed for quickly understanding algorithms. In interact mode, you can run various algorithms very quickly, understand the reasoning process of different algorithms, without needing to download any additional data.
 
-## setup colbert server
+## Setup colbert server
 - All algorithms integrated in raglab include two modes: `interact` and `evaluation`. The test stage demonstrates in `interact` mode, just for demostration and eduction 🤗.
 - Due to colbert's requirement for absolute paths, you need to modify the index_dbPath and text_dbPath in the config file to use absolute paths.
 - Modify the `index_dbPath` and `text_dbPath` in config file:[colbert_server-10samples.yaml](./config/colbert_server/colbert_server-10samples.yaml)
@@ -114,7 +114,7 @@
   sh run/colbert_server/colbert_server-10samples.sh
   ~~~
   - At this point, colbert embedding will prompt that due to path errors, colbert embedding needs to be reprocessed. Please enter `yes` and then raglab will automatically help you process the embedding and start the colbert server.
-  - Now please open another terminal and try to request the colbert server
+- Now please open another terminal and try to request the colbert server
   ~~~bash
   cd RAGLAB
   sh run/colbert_server/ask_api.sh
@@ -129,18 +129,33 @@
 - In raglab, each algorithm has 10 queries built-in in interact mode which are sampled from different benchmarks
 
 # Reproduce paper results 
+- remember download  [wiki2018 konwledge database](#🤗whole-data) and [model](#🤗models) before runing paper results
 ## Retrieval server & api
-- The inference experiments require running hundreds of scripts in parallel. If each script loads the wiki2023 database separately, not only does it require a large amount of RAM, but loading the wiki2023 database each time also takes a considerable amount of time, which is a significant waste of computing resources. Therefore, RagLab has designed [colbert server & colbert api](https://github.com/fate-ubw/RAGLAB/tree/main/raglab/retrieval/colbert_api) to address the problem of multi-task parallel retrieval. By runnging local colbert server, tasks can call the colbert api to obtain retrieval results, greatly reducing the inference time for multiple tasks.
+- Due to colbert's requirement for absolute paths, you need to modify the index_dbPath and text_dbPath in config file and 处理好的 wiki2018 embedding database
+  - 修改 config 文件中的路径
+  ~~~bash
+  cd RAGLAB/config/colbert_server
+  vim colbert_server.yaml
+  index_dbPath: {your_root_path}/RAGLAB/data/retrieval/colbertv2.0_embedding/wiki2018
+  text_dbPath: {your_root_path}/RAGLAB/data/retrieval/colbertv2.0_passages/wiki2018/wiki2018.tsv
+  ~~~
+  - 修改 wiki2018 embedding 源文件中绑定的绝对路径
+  ~~~bash
+  cd RAGLAB/preprocess/colbert-wiki2018-preprocess
+  vim wiki2018_db_into_tsv.py
+  ~~~
+
+
 - Attention: colbert_server need atleast 60GB ram 
   ~~~bash
   cd RAGLAB
   sh run/colbert_server/colbert_server.sh
   ~~~
 - open another terminal test your ColBERT server
-~~~bash
-cd RAGLAB
-sh run/colbert_server/ask_api.sh
-~~~
+  ~~~bash
+  cd RAGLAB
+  sh run/colbert_server/ask_api.sh
+  ~~~
 - ColBERT server started successfully!!! 🌈
 ## Automatic GPU Scheduler
 - inference experiments require running hundreds of scripts in parallel, the [automatic gpu scheduler](https://github.com/ExpectationMax/simple_gpu_scheduler) needs to be used to automatically allocate GPUs for different bash scripts in Parallel.
@@ -162,7 +177,7 @@ sh run/colbert_server/ask_api.sh
   ~~~
 
 
-# process knowlwdge database 
+# Process knowlwdge database 
 
 ## 💽 process wiki2023 as vector database
 
@@ -185,7 +200,7 @@ sh run/colbert_server/ask_api.sh
 - Embedding precess will take around 15mins in first time.
 - The first time colbert processes embeddings, it takes a relatively long time because it needs to recompile the `torch_extensions`. However, calling the processed embeddings does not require a long time. If there are no errors and the retrieved text can be printed, it indicates that the environment is correct.
 
-### embedding whole wiki2023
+### embedding whole wiki2023 
 - you can download the [colbert embdding wiki2023]() as raglab database(40Gb)
 ~~~bash
 cd /RAGLAB/data/retrieval/colbertv2.0_embedding
