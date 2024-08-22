@@ -5,7 +5,7 @@
 
 
 
-![figure-1](./figures/Raglab-figure-1_00.png)
+![figure-1](./figures/Raglab-figure-1.png)
 
 # 🌟Features
 - **Comprehensive RAG Ecosystem:** Supports the entire RAG pipeline from data collection and training to auto-evaluation.
