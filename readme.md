@@ -99,9 +99,19 @@
 
 # Run Raglab in Interact Mode
 - Interact Mode is specifically designed for quickly understanding algorithms. In interact mode, you can run various algorithms very quickly, understand the reasoning process of different algorithms, without needing to download any additional data.
+## setup colbert server
+- RAGLAB 创造了一个只包含 10 个样本的 wiki2023 knowledge database for interact mode。
+  - 由于 colbert 强制使用绝对路径，所以需要
+
+- 运行 colbert server 
+  ~~~bash
+  cd RAGLAB
+  sh run/colbert_server/colbert_server-10samples.sh
+  ~~~
+- 
 ## prepare knowledge database 
-- After processing with colbert embeddings, you can start running the algorithms in raglab. All algorithms integrated in raglab include two modes: `interact` and `evaluation`. The test stage demonstrates in `interact` mode, just for fun 🤗.
-- Modify the `index_dbPath` and `text_dbPath` in config file:[selfrag_reproduction-interact-short_form-adaptive_retrieval.yaml](https://github.com/fate-ubw/RAGLAB/blob/main/config/selfrag_reproduction/selfrag_reproduction-interact-short_form-adaptive_retrieval.yaml)
+- All algorithms integrated in raglab include two modes: `interact` and `evaluation`. The test stage demonstrates in `interact` mode, just for demostration and eduction 🤗.
+- Modify the `index_dbPath` and `text_dbPath` in config file:[colbert_server-10samples.yaml](./config/colbert_server/colbert_server-10samples.yaml)
   ~~~bash
   index_dbPath: /your_root_path/RAGLAB/data/retrieval/colbertv2.0_embedding/wiki2023-10samples
   text_dbPath: /your_root_path/RAGLAB/data/retrieval/colbertv2.0_passages/wiki2023-10samples/enwiki-20230401-10samples.tsv
