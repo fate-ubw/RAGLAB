@@ -129,7 +129,7 @@
 # Reproduce paper results 
 - remember download  [wiki2018 konwledge database](#🤗whole-data) and [model](#🤗models) before runing paper results
 ## Retrieval server & api
-- Due to colbert's requirement for absolute paths, you need to modify the index_dbPath and text_dbPath in config file and process the wiki2018 embedding database
+- Due to colbert's requirement for absolute paths, you need to modify the `index_dbPath` and `text_dbPath` in config file and process the wiki2018 embedding database
   - Modify the paths in the config file
   ~~~bash
   cd RAGLAB/config/colbert_server
@@ -164,7 +164,7 @@
 - run hundreds of experiments in one line 😎
   ~~~bash
   cd RAGLAB
-  simple_gpu_scheduler --gpus 0,1,2,3,4,5,6,7 < auto_gpu_scheduling_scripts/auto_run_scripts-jeff.py
+  simple_gpu_scheduler --gpus 0,1,2,3,4,5,6,7 < auto_gpu_scheduling_scripts/auto_run-llama3_8b-baseline-scripts.txt
   ~~~
 - how to write your_script.txt?
   - here is an example
