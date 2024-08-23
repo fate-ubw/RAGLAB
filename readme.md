@@ -107,7 +107,8 @@
 
 ## Setup colbert server
 - All algorithms integrated in raglab include two modes: `interact` and `evaluation`. The test stage demonstrates in `interact` mode, just for demostration and eduction 🤗.
-- Due to colbert's requirement for absolute paths, you need to modify the index_dbPath and text_dbPath in the config file to use absolute paths.
+> [!NOTE]
+> - Due to colbert's requirement for absolute paths, you need to modify the index_dbPath and text_dbPath in the config file to use absolute paths.
 - Modify the `index_dbPath` and `text_dbPath` in config file:[colbert_server-10samples.yaml](./config/colbert_server/colbert_server-10samples.yaml)
   ~~~bash
   index_dbPath: /your_root_path/RAGLAB/data/retrieval/colbertv2.0_embedding/wiki2023-10samples
@@ -118,7 +119,8 @@
   cd RAGLAB
   sh run/colbert_server/colbert_server-10samples.sh
   ~~~
-  - At this point, colbert embedding will prompt that due to path errors, colbert embedding needs to be reprocessed. Please enter `yes` and then raglab will automatically help you process the embedding and start the colbert server.
+> [!NOTE]
+> - At this point, colbert embedding will prompt that due to path errors, colbert embedding needs to be reprocessed. Please enter `yes` and then raglab will automatically help you process the embedding and start the colbert server.
 - Now please open another terminal and try to request the colbert server
   ~~~bash
   cd RAGLAB
@@ -134,7 +136,8 @@
 - In raglab, each algorithm has 10 queries built-in in interact mode which are sampled from different benchmarks
 
 # Reproduce paper results 
-- remember download  [wiki2018 konwledge database](#🤗whole-data) and [model](#🤗models) before runing paper results
+> [!NOTE]
+> - remember download  [wiki2018 konwledge database](#🤗whole-data) and [model](#🤗models) before runing paper results
 ## Retrieval server & api
 - Due to colbert's requirement for absolute paths, you need to modify the `index_dbPath` and `text_dbPath` in config file and process the wiki2018 embedding database
   - Modify the paths in the config file
