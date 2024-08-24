@@ -191,7 +191,7 @@
   ~~~bash
   cd RAGLAB
   cd run/ALCE/
-  
+
   # Change the path in each sh file for the inference generated files
   # For example:
   # python  ./ALCE/eval.py --f './data/eval_results/ASQA/{your_input_file_path}.jsonl' \
@@ -214,7 +214,7 @@
   #  --input_path './data/eval_results/Factscore/{your_input_file_path}.jsonl' \
   #   --model_name "retrieval+ChatGPT"\
   #   --openai_key ./api_keys.txt \
-  #   --data_dir ./data/factscore \
+  #  --data_dir ./data/retrieval/colbertv2.0_passages/wiki2023 \
   #  --verbose
 
   simple_gpu_scheduler --gpus 0,1,2,3,4,5,6,7 < auto_gpu_scheduling_scripts/auto_eval_Factscore.txt

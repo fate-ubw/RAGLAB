@@ -3,5 +3,5 @@ python  ./FActScore/factscore/factscorer.py  \
     --input_path './data/eval_results/Factscore/naive_rag-Factscore-gpt-3.5-turbo-colbert-0528_0154_11/rag_output-naive_rag|Factscore|gpt-3.5-turbo|colbert|time=0528_0154_11.jsonl' \
     --model_name "retrieval+ChatGPT"\
     --openai_key ./api_keys.txt \
-    --data_dir ./data/factscore \
+    --data_dir ./data/retrieval/colbertv2.0_passages/wiki2023 \
     --verbose
