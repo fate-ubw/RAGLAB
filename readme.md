@@ -175,6 +175,7 @@
   ~~~bash
   cd RAGLAB
   simple_gpu_scheduler --gpus 0,1,2,3,4,5,6,7 < auto_gpu_scheduling_scripts/auto_run-llama3_8b-baseline-scripts.txt
+  # Other scripts can be run using the same method
   ~~~
 - how to write your_script.txt?
   - here is an example
@@ -183,9 +184,46 @@
   sh run/rag_inference/selfrag_reproduction/selfrag_reproduction-evaluation-short_form-PubHealth-adaptive_retrieval-pregiven_passages.sh
   sh run/rag_inference/selfrag_reproduction/selfrag_reproduction-evaluation-short_form-PubHealth-always_retrieval-pregiven_passages.sh
   ~~~
+## Evaluation for ALCE & Factscore
 
+- RAGLAB includes 3 classic evaluation methods: accuracy, F1, and EM (Exact Match). These 3 methods are simple to calculate, so they can be computed dynamically during the inference process. However, ALCE and Factscore, two advanced metrics, require the completion of the inference process before evaluation.
+- **ALCE**: RAGLAB has integrated the ALCE repository into RAGLAB. You only need to set the path for the inference results in the config file.
+  ~~~bash
+  cd RAGLAB
+  cd run/ALCE/
+  
+  # Change the path in each sh file for the inference generated files
+  # For example:
+  # python  ./ALCE/eval.py --f './data/eval_results/ASQA/{your_input_file_path}.jsonl' \
+  #     --mauve \
+  #     --qa
 
-# Process knowlwdge database 
+  simple_gpu_scheduler --gpus 0,1,2,3,4,5,6,7 < auto_gpu_scheduling_scripts/auto_eval_ALCE.txt
+
+  ~~~
+- The evaluation results will be in the same directory as the input file, with the file name suffix `.score`
+
+- **Factscore**: The Factscore environment requires installation of `torch 1.13.1`, which conflicts with the flash-attn version needed in RAGLAB's training and inference modules. Therefore, RAGLAB currently cannot integrate the Factscore environment, so users need to install the [Factscore](https://github.com/shmsw25/FActScore) environment separately for evaluation.
+- After installing the Factscore environment, please modify the path of the inference results in the bash file
+  ~~~bash
+  cd RAGLAB/run/Factscore/
+
+  # change the path in each sh file for the inference generated files
+  # For example:
+  # python  ./FActScore/factscore/factscorer.py  \
+  #  --input_path './data/eval_results/Factscore/{your_input_file_path}.jsonl' \
+  #   --model_name "retrieval+ChatGPT"\
+  #   --openai_key ./api_keys.txt \
+  #   --data_dir ./data/factscore \
+  #  --verbose
+
+  simple_gpu_scheduler --gpus 0,1,2,3,4,5,6,7 < auto_gpu_scheduling_scripts/auto_eval_Factscore.txt
+  ~~~
+- The evaluation results will be in the same directory as the input file, with the file name suffix `_factscore_output.json`
+> [!NOTE]
+> - During the Factscore evaluation process, we used GPT-3.5 as the evaluation model, so there's no need to download a local model. If you need to use a local model to evaluate Factscore, please refer to [Factscore](https://github.com/shmsw25/FActScore)
+
+# Process knowlwdge database from source
 
 ## 💽 process wiki2023 as vector database
 
