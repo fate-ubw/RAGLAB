@@ -12,6 +12,16 @@
 
 ![figure-1](./figures/Raglab-figure-1.png)
 
+# News
+- 2024.8.20: RAGLAB has open-sourced 4 models🤗:
+  [llama3-8B-baseline](https://huggingface.co/RAGLAB/Llama3-8B-baseline)
+  [selfrag-llama3-8b](https://huggingface.co/RAGLAB/selfrag_llama3-8B)
+  [llama3-70B-adaptor](https://huggingface.co/RAGLAB/Llama3-70B-baseline-adapter)
+  [selfrag-llama3-70B-adaptor](https://huggingface.co/RAGLAB/selfrag_llama3_70B-adapter)
+- 2024.8.6: RAGLAB is released🌈.
+
+
+
 # 🌟Features
 - **Comprehensive RAG Ecosystem:** Supports the entire RAG pipeline from data collection and training to auto-evaluation.
 - **Advanced Algorithm Implementations:** Reproduces 6 state-of-the-art RAG algorithms, with an easy-to-extend framework for developing new algorithms.
@@ -234,4 +244,4 @@
 
 ## :bookmark: License
 
-FlashRAG is licensed under the [<u>MIT License</u>](./LICENSE).
+RAGLAB is licensed under the MIT License.
