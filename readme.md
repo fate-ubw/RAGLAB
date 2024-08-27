@@ -31,6 +31,10 @@
 - **Versatile Generator Support:** Compatible with 70B+ models, VLLM, and quantization techniques.
 - **Flexible Instruction Lab:** Customizable instruction templates for various RAG scenarios.
 
+# Related works
+- Interesting RAG applications
+  - [Autosurvey](https://github.com/AutoSurveys/AutoSurvey)
+
 # 🔨Install environment
 - dev environment：pytorch:2.0.1-py3.10-cuda11.8.0-devel-ubuntu22.04
 - [install miniconda](https://docs.anaconda.com/free/miniconda/index.html)
