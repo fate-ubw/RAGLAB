@@ -147,7 +147,7 @@
 
 # Reproduce paper results 
 > [!NOTE]
-> - remember download  [wiki2018 konwledge database](#🤗whole-data) and [model](#🤗models) before runing paper results
+> - remember download  [wiki2018 konwledge database](#🤗whole-data) and [model](#🤗models) before running paper results
 ## Retrieval server & api
 - Due to colbert's requirement for absolute paths, you need to modify the `index_dbPath` and `text_dbPath` in config file and process the wiki2018 embedding database
   - Modify the paths in the config file
