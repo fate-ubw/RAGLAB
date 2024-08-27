@@ -31,7 +31,7 @@
 - **Versatile Generator Support:** Compatible with 70B+ models, VLLM, and quantization techniques.
 - **Flexible Instruction Lab:** Customizable instruction templates for various RAG scenarios.
 
-# Related works
+# 📎Related works
 - Interesting RAG applications
   - [Autosurvey](https://github.com/AutoSurveys/AutoSurvey)
 
