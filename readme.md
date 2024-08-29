@@ -237,7 +237,7 @@
 > [!NOTE]
 > - During the Factscore evaluation process, we used GPT-3.5 as the evaluation model, so there's no need to download a local model. If you need to use a local model to evaluate Factscore, please refer to [Factscore](https://github.com/shmsw25/FActScore)
 
-# Process knowlwdge database from source
+# Process knowledge database from source
 - If you wish to process the knowledge database yourself, please refer to the following steps. RAGLAB has already uploaded the processed knowledge database to [Hugging Face](https://huggingface.co/datasets/RAGLAB/data)
 - document: [process_wiki.md](./docs/process_wiki.md)
 
