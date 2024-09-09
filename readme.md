@@ -13,6 +13,7 @@
 ![figure-1](./figures/Raglab-figure-1.png)
 
 # News
+- 2024.9.9: RAGLAB has open-sourced all log files and evaluation files in [evaluation results](https://huggingface.co/datasets/RAGLAB/raglab-eval_results)📌
 - 2024.8.20: RAGLAB has open-sourced 4 models🤗:
   [llama3-8B-baseline](https://huggingface.co/RAGLAB/Llama3-8B-baseline)
   [selfrag-llama3-8b](https://huggingface.co/RAGLAB/selfrag_llama3-8B)
