@@ -13,6 +13,7 @@
 ![figure-1](./figures/Raglab-figure-1.png)
 
 # News
+- 2024.10.6: Our paper has been accepted by EMNLP 2024 System Demonstration.🎉 You can find our paper in [RAGLAB](https://arxiv.org/abs/2408.11381).
 - 2024.9.9: RAGLAB has open-sourced all log files and evaluation files in [evaluation results](https://huggingface.co/datasets/RAGLAB/raglab-eval_results)📌
 - 2024.8.20: RAGLAB has open-sourced 4 models🤗:
   [llama3-8B-baseline](https://huggingface.co/RAGLAB/Llama3-8B-baseline)
@@ -20,7 +21,6 @@
   [llama3-70B-adaptor](https://huggingface.co/RAGLAB/Llama3-70B-baseline-adapter)
   [selfrag-llama3-70B-adaptor](https://huggingface.co/RAGLAB/selfrag_llama3_70B-adapter)
 - 2024.8.6: RAGLAB is released🌈.
-
 
 
 # 🌟Features
@@ -247,6 +247,29 @@
 - [All data](#all-data-for-reproduce-paper-results) provides all data necessary for finetuning.
 - document: [train_docs.md](./docs/train_docs.md)
 
+## Citation
+If you find this repository useful, please cite our work.
+~~~
+@inproceedings{zhang-etal-2024-raglab,
+    title = "{RAGLAB}: A Modular and Research-Oriented Unified Framework for Retrieval-Augmented Generation",
+    author = "Zhang, Xuanwang  and
+      Song, Yunze  and
+      Wang, Yidong  and
+      Tang, Shuyun  and
+      Li, Xinfeng  and
+      Zeng, Zhengran  and
+      Wu, Zhen  and
+      Ye, Wei  and
+      Xu, Wenyuan  and
+      Zhang, Yue  and
+      others",
+    booktitle = "Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing: System Demonstrations",
+    month = dec,
+    year = "2024",
+    publisher = "Association for Computational Linguistics",
+}
+~~~
+
 ## :bookmark: License
 
-RAGLAB is licensed under the MIT License.
+RAGLAB is licensed under the [MIT License](./LICENSE).
