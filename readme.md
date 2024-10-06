@@ -252,17 +252,19 @@ If you find this repository useful, please cite our work.
 ~~~
 @inproceedings{zhang-etal-2024-raglab,
     title = "{RAGLAB}: A Modular and Research-Oriented Unified Framework for Retrieval-Augmented Generation",
-    author = "Zhang, Xuanwang  and
-      Song, Yunze  and
-      Wang, Yidong  and
-      Tang, Shuyun  and
-      Li, Xinfeng  and
-      Zeng, Zhengran  and
-      Wu, Zhen  and
-      Ye, Wei  and
-      Xu, Wenyuan  and
-      Zhang, Yue  and
-      others",
+    author = "Zhang, Xuanwang and
+      Song, Yunze and
+      Wang, Yidong and
+      Tang, Shuyun and
+      Li, Xinfeng and
+      Zeng, Zhengran and
+      Wu, Zhen and
+      Ye, Wei and
+      Xu, Wenyuan and
+      Zhang, Yue and
+      Dai, Xinyu and
+      Zhang, Shikun and
+      Wen, Qingsong",
     booktitle = "Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing: System Demonstrations",
     month = dec,
     year = "2024",
