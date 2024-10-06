@@ -249,7 +249,8 @@
 
 ## Citation
 If you find this repository useful, please cite our work.
-~~~@inproceedings{zhang-etal-2024-raglab,
+~~~
+@inproceedings{zhang-etal-2024-raglab,
     title = "{RAGLAB}: A Modular and Research-Oriented Unified Framework for Retrieval-Augmented Generation",
     author = "Zhang, Xuanwang and
       Song, Yunze and
