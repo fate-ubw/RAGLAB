@@ -94,7 +94,6 @@ dependencies:
       - fastapi==0.109.0
       - fastjsonschema==2.19.1
       - filelock==3.13.1
-      - flash-attn==2.2.0
       - flask==3.0.2
       - fqdn==1.5.1
       - frozenlist==1.4.1
